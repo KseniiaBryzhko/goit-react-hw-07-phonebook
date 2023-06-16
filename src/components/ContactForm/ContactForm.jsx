@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
 
-export const ContactForm = ({ formSubmitHandler }) => {
+export const ContactForm = event => {
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const handlerFormSubmit = ({ name, number }, actions) => {
+    event.preventDefault();
     if (
       contacts.find(
         contact => contact.name.toLowerCase() === name.toLowerCase()
