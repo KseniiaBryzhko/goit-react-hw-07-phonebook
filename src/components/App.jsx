@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts } from 'redux/operations';
 import { getError, getIsLoading, getFilter } from 'redux/selectors';
-// import { getContacts } from 'redux/selectors';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
@@ -12,7 +11,6 @@ export const App = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
-  // const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
   useEffect(() => {
@@ -30,6 +28,7 @@ export const App = () => {
           <p>Loading...</p>
         </>
       )) || <ContactList />}
+      {error && <p>Something went wrong. Please try again!</p>}
     </div>
   );
 };
