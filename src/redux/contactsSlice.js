@@ -1,13 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
 
 const handlePending = state => {
   state.isLoading = true;
 };
 
-const handleRejected = (state, action) => {
+const handleRejected = (state, { payload }) => {
   state.isLoading = false;
-  state.error = action.payload;
+  state.error = payload;
+};
+
+const handleFulfilled = state => {
+  state.isLoading = false;
+  state.error = null;
+};
+
+const handleFulfilledGet = (state, { payload }) => {
+  state.contacts = payload;
+};
+
+const handleFulfilledAdd = (state, { payload }) => {
+  state.contacts.push(payload);
+};
+
+const handleFulfilledDelete = (state, { payload }) => {
+  const index = state.contacts.findIndex(contact => contact.id === payload.id);
+  state.contacts.splice(index, 1);
 };
 
 const contactsSlice = createSlice({
@@ -18,33 +36,35 @@ const contactsSlice = createSlice({
     error: null,
   },
 
-  extraReducers: {
-    [fetchContacts.pending]: handlePending,
-    [addContact.pending]: handlePending,
-    [deleteContact.pending]: handlePending,
-
-    [fetchContacts.rejected]: handleRejected,
-    [addContact.rejected]: handleRejected,
-    [deleteContact.rejected]: handleRejected,
-
-    [fetchContacts.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.contacts = action.payload;
-    },
-    [addContact.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.contacts.push(action.payload);
-    },
-    [deleteContact.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      const index = state.contacts.findIndex(
-        contact => contact.id === action.payload.id
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.fulfilled, handleFulfilledGet)
+      .addCase(addContact.fulfilled, handleFulfilledAdd)
+      .addCase(deleteContact.fulfilled, handleFulfilledDelete)
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.pending,
+          addContact.pending,
+          deleteContact.pending
+        ),
+        handlePending
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.rejected,
+          addContact.rejected,
+          deleteContact.rejected
+        ),
+        handleRejected
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.fulfilled,
+          addContact.fulfilled,
+          deleteContact.fulfilled
+        ),
+        handleFulfilled
       );
-      state.contacts.splice(index, 1);
-    },
   },
 });
 
