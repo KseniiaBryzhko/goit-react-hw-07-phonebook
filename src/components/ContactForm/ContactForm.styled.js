@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { Form, Field, ErrorMessage } from 'formik';
 
-export const Form = styled.form`
+export const AddContactForm = styled(Form)`
   padding: 30px 60px 30px 60px;
   display: flex;
   flex-direction: column;
@@ -27,7 +28,7 @@ export const Label = styled.label`
   margin: 0 auto;
 `;
 
-export const Input = styled.input`
+export const Input = styled(Field)`
   width: 20vw;
   height: 24px;
   margin-top: 10px;
@@ -83,4 +84,12 @@ export const AddButton = styled.button`
     top: 0;
     height: 100%;
   }
+`;
+
+export const CustomErrorMessage = styled(ErrorMessage)`
+  text-align: center;
+  font-size: 16px;
+  max-width: 20vw;
+  color: red;
+  margin-top: 8px;
 `;
