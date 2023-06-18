@@ -5,7 +5,7 @@ import { getError, getIsLoading, getFilter } from 'redux/selectors';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
-import css from './App.module.css';
+import { Phonebook, Title, ContactsTitle, Message } from './App.styled.js';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -18,17 +18,17 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <div className={css.phonebook}>
-      <h1 className={css.title}>Phonebook</h1>
+    <Phonebook>
+      <Title>Phonebook</Title>
       <ContactForm />
-      <h2 className={css.title}>Contacts</h2>
+      <ContactsTitle>Contacts</ContactsTitle>
       <Filter value={filter}></Filter>{' '}
       {(isLoading && !error && (
         <>
-          <p>Loading...</p>
+          <Message>Loading...</Message>
         </>
       )) || <ContactList />}
-      {error && <p>Something went wrong. Please try again!</p>}
-    </div>
+      {error && <Message>Something went wrong. Please try again!</Message>}
+    </Phonebook>
   );
 };

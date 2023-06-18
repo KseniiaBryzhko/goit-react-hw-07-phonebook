@@ -1,23 +1,22 @@
 import PropTypes from 'prop-types';
-import css from './ContactItem.module.css';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations';
+import { ListItem, DeleteButton } from './ContactItem.styled.js';
 
 export const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
 
   return (
-    <li className={css.item}>
+    <ListItem>
       {name}: {number}
-      <button
-        className={css.button}
+      <DeleteButton
         onClick={() => {
           dispatch(deleteContact(id));
         }}
       >
         Delete
-      </button>
-    </li>
+      </DeleteButton>
+    </ListItem>
   );
 };
 

@@ -1,7 +1,7 @@
-import css from './ContactList.module.css';
 import { ContactItem } from 'components/ContactItem/ContactItem';
 import { getContacts, getFilter } from 'redux/selectors';
 import { useSelector } from 'react-redux';
+import { List } from './ContactList.styled.js';
 
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
@@ -15,10 +15,10 @@ export const ContactList = () => {
   })();
 
   return (
-    <ul className={css.list}>
+    <List>
       {filteredContacts.map(({ id, name, number }) => (
         <ContactItem key={id} id={id} name={name} number={number} />
       ))}
-    </ul>
+    </List>
   );
 };

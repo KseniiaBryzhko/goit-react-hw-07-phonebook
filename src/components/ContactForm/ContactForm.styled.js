@@ -1,4 +1,6 @@
-.form {
+import styled from '@emotion/styled';
+
+export const Form = styled.form`
   padding: 30px 60px 30px 60px;
   display: flex;
   flex-direction: column;
@@ -10,9 +12,9 @@
     7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
   margin: 0 auto;
   margin-bottom: 40px;
-}
+`;
 
-.label {
+export const Label = styled.label`
   text-align: center;
   color: #353535;
   font-size: 24px;
@@ -23,9 +25,9 @@
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-}
+`;
 
-.input {
+export const Input = styled.input`
   width: 20vw;
   height: 24px;
   margin-top: 10px;
@@ -37,14 +39,13 @@
   background-color: #ffffff;
   color: #212121;
   transition: all cubic-bezier(0.25s, 0.7, 0.98, 0.86) 0s;
-}
+  &:focus {
+    outline: 2px solid #d4dae3;
+    border-radius: 5px;
+  }
+`;
 
-.input:focus {
-  outline: 2px solid #d4dae3;
-  border-radius: 5px;
-}
-
-.button {
+export const AddButton = styled.button`
   outline: none;
   padding: 10px 25px;
   background: transparent;
@@ -62,27 +63,24 @@
   width: 15vw;
   margin: 0 auto;
   margin-top: 10px;
-}
-
-.button:after {
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  box-shadow: -10px -10px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
-    7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.button:hover {
-  color: #000;
-}
-
-.button:hover:after {
-  top: 0;
-  height: 100%;
-}
+  &:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    box-shadow: -10px -10px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
+      7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  &:hover {
+    color: #000;
+  }
+  &:hover:after {
+    top: 0;
+    height: 100%;
+  }
+`;
